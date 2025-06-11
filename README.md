@@ -1,4 +1,5 @@
 Monitoramento e Resposta a Eventos Críticos na Azure
+
 Este repositório foi criado para demonstrar como manter visibilidade, controle e resposta proativa sobre eventos críticos em um ambiente de nuvem, com foco na exclusão de máquinas virtuais (VMs) na Azure. O objetivo é fornecer um guia prático com resumos, anotações e dicas para estudo e implementação, ajudando a gerenciar ambientes de nuvem de forma eficiente e segura.
 Objetivo
 O desafio proposto é criar um material de apoio que:
