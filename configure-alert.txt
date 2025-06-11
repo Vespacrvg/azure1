@@ -1,0 +1,32 @@
+# Script para configurar um alerta no Azure Monitor para exclusão de VMs
+# Pré-requisitos: Azure PowerShell (módulo Az) instalado e autenticação configurada
+
+# Variáveis
+$subscriptionId = "<sua-subscription-id>"  # Substitua pelo ID da sua assinatura
+$resourceGroup = "<resource-group>"        # Substitua pelo nome do grupo de recursos
+$actionGroupName = "<action-group-name>"   # Substitua pelo nome do grupo de ação
+$alertName = "VMDeletionAlert"
+
+# Configurar o grupo de ação (substitua pelo ID correto)
+$actionGroupId = "/subscriptions/$subscriptionId/resourceGroups/$resourceGroup/providers/microsoft.insights/actionGroups/$actionGroupName"
+
+# Condição do alerta
+$condition = @{
+    "allOf" = @(
+        @{
+            "field" = "operationName"
+            "equals" = "Microsoft.Compute/virtualMachines/delete"
+        }
+    )
+}
+
+# Criar o alerta
+New-AzActivityLogAlert `
+    -ResourceGroupName $resourceGroup `
+    -Name $alertName `
+    -Location "global" `
+    -Scope "/subscriptions/$subscriptionId" `
+    -Condition $condition `
+    -ActionGroupId $actionGroupId
+
+Write-Output "Alerta '$alertName' configurado com sucesso!"
